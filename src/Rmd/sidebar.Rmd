@@ -1,0 +1,15 @@
+<p id="appTitle">Family Picks 2019</p>
+
+<p id="appVersion">version `r gitVersion()`</p>
+
+----------
+
+**Last refreshed on:**
+
+<p id="lastRefreshDate">`r format(file.info("../../success.txt")$mtime, "%B %d, %Y")`</p>
+
+----------
+
+Visit the [info page](#section-info) for more background information on the data as well as helpful tips for using this application.
+
+----------
