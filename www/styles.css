@@ -1,0 +1,142 @@
+/*
+import Monda font from Google (closest to NFL)
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Monda');
+
+/*
+global
+*/
+
+body {
+    font-family: 'Monda', Arial, sans-serif;
+    background-color: #F1EFEF;
+}
+/*
+::-webkit-scrollbar {
+    display: none;
+}
+*/
+
+/*
+navigation bar
+*/
+
+.navbar {
+    background-color: #013369;
+    border-bottom: 1px solid #013369;
+}
+.navbar-logo {
+    height: 40px;
+    padding-top: 5px;
+}
+.navbar-brand {
+    font-size: 20px;
+}
+#navbar a:hover,
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus {
+    background-color: #D50A0A;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+/*
+sidebar
+*/
+
+#section-sidebar {
+    border: 1px solid #013369;
+    background-color: #013369;
+    color: #FFFFFF;
+}
+#section-sidebar hr {
+    border-top: 2px solid #D50A0A;
+}
+#appTitle {
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    color: #F0AE00;
+    margin-bottom: 5px;
+}
+#appVersion {
+    text-align: center;
+    font-weight: bold;
+    color: #B0B7BC;
+}
+#lastRefreshDate {
+    background-color: #F1EFEF;
+    color: #013369;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 3px;
+    text-align: center;
+}
+#section-sidebar p:not(#appTitle) {
+    font-size: small;
+}
+#section-sidebar a {
+    color: #0AD5D5;
+    font-weight: bold;
+}
+#section-sidebar .shiny-flow-layout > div {
+    padding-right: 0;
+}
+.chart-wrapper .chart-stage {
+    overflow: auto;
+}
+.shiny-flow-layout,
+.shiny-flow-layout > div,
+.shiny-flow-layout > div > div {
+    width: 100%;
+}
+.shiny-input-container label {
+    color: #013369;
+    font-weight: bold;
+    font-size: smaller;
+}
+
+/*
+info page
+*/
+
+#section-info {
+    color: #002854;
+}
+#section-info a {
+    font-weight: bold;
+}
+#section-information .chart-stage {
+    overflow: auto;
+}
+#section-information hr {
+    border-top: 2px solid #013369;
+}
+#section-information h3:first-of-type {
+    margin-top: 10px;
+}
+#section-info ul .fa {
+    margin-right: 5px;
+}
+
+/*
+general use
+*/
+
+.noshow {
+    visibility: hidden;
+}
+.dataTables_wrapper .dataTables_scroll .dataTables_scrollBody:not(:hover) {
+    overflow: hidden !important;
+}
+.plotly * {
+    font-family: 'Monda', Arial, sans-serif !important;
+}
+.plotly .legend .bg {
+    fill: transparent !important;
+}
+
+/*
+app specific
+*/

@@ -1,0 +1,38 @@
+---
+title: "National Football League"
+output:
+    flexdashboard::flex_dashboard:
+        orientation: rows
+        css: www/styles.css
+        logo: www/nfl.png
+        favicon: www/nfl.png
+runtime: shiny
+---
+
+```{r global, include=FALSE}
+suppressMessages(library(HylandR))
+sink(file = "/dev/null")
+suppressMessages(loadPackages("etc/PACKAGES"))
+sink()
+sourceFunctions("src/R/app")
+sourceFunctions("src/R/util")
+#load("pub/main.RData")
+```
+
+Sidebar {.sidebar}
+==========
+
+```{r, child = "src/Rmd/sidebar.Rmd"}
+```
+
+Home {data-icon=fa-home}
+=========
+
+```{r, child = "src/Rmd/home.Rmd"}
+```
+
+Info {data-icon=fa-info-circle}
+=========
+
+```{r, child = "src/Rmd/info.Rmd"}
+```
