@@ -10,13 +10,13 @@ runtime: shiny
 ---
 
 ```{r global, include=FALSE}
-suppressMessages(library(HylandR))
+source("src/R/util/sourceFunctions.R")
+sourceFunctions("src/R/util")
 sink(file = "/dev/null")
 suppressMessages(loadPackages("etc/PACKAGES"))
 sink()
 sourceFunctions("src/R/app")
-sourceFunctions("src/R/util")
-#load("pub/main.RData")
+load("pub/main.RData")
 ```
 
 Sidebar {.sidebar}
