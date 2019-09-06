@@ -4,8 +4,8 @@ output:
     flexdashboard::flex_dashboard:
         orientation: rows
         css: www/styles.css
-        logo: www/nfl.png
-        favicon: www/nfl.png
+        logo: www/logo/nfl.png
+        favicon: www/logo/nfl.png
 runtime: shiny
 ---
 
