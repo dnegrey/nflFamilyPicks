@@ -19,7 +19,7 @@ DIR_ROOT <- getwd()
 
 ## R functions stored in <project-root>/src/R
 ## source project R functions
-library(HylandR)
+source("src/R/util/sourceFunctions.R")
 sourceFunctions("src/R/main")
 sourceFunctions("src/R/util")
 
