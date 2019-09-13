@@ -1,5 +1,8 @@
 Row
 ----------
 
-### **Home**
+### **Current Standings**
 
+```{r}
+personTotals(main$game)
+```
