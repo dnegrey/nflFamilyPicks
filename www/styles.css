@@ -140,3 +140,7 @@ general use
 /*
 app specific
 */
+
+#section-data .nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #D50A0A;
+}

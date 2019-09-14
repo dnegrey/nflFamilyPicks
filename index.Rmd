@@ -31,6 +31,12 @@ Home {data-icon=fa-home}
 ```{r, child = "src/Rmd/home.Rmd"}
 ```
 
+Data {data-icon=fa-table}
+=========
+
+```{r, child = "src/Rmd/data.Rmd"}
+```
+
 Info {data-icon=fa-info-circle}
 =========
 

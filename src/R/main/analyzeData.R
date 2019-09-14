@@ -5,8 +5,9 @@ analyzeData <- function(dir) {
         x = "main",
         fun = list,
         args = list(
+            game = RDataUse(dir, "game"),
             team = RDataUse(dir, "team"),
-            game = RDataUse(dir, "game")
+            logo = RDataUse(dir, "logo")
         )
     )
 }

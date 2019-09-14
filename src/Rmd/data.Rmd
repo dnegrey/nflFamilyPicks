@@ -1,0 +1,47 @@
+Row {.tabset .tabset-fade}
+----------
+
+### **Teams**
+
+```{r}
+output$dataTeam <- renderDT({
+    xl <- "<img src=\"%s\" style=\"height: 20%s;\"</img>"
+    x <- main$team %>%
+        mutate(Logo = xl) %>%
+        select(
+            Logo,
+            Team,
+            Name,
+            ConDiv
+        )
+    xlt <- unlist(main$logo[tolower(x$Team)])
+    x$Logo <- sprintf(x$Logo, xlt, "%")
+    datatable(
+        data = x,
+        escape = FALSE,
+        options = list(
+            dom = "ft",
+            pageLength = nrow(x),
+            columnDefs = list(
+                list(
+                    targets = c(0:1, 3),
+                    className = "dt-center"
+                )
+            )
+        ),
+        rownames = FALSE,
+        colnames = c(
+            "Logo",
+            "Team",
+            "Name",
+            "Division"
+        )
+    )
+})
+DTOutput("dataTeam")
+```
+
+### **Games**
+
+```{r}
+```
