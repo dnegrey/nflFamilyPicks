@@ -19,12 +19,15 @@ output$dataTeam <- renderDT({
     datatable(
         data = x,
         escape = FALSE,
+        extensions = "Scroller",
         options = list(
-            dom = "ft",
+            dom = "t",
             pageLength = nrow(x),
+            scrollY = 700,
+            scrollCollapse = FALSE,
             columnDefs = list(
                 list(
-                    targets = c(0:1, 3),
+                    targets = c(0:2, 3),
                     className = "dt-center"
                 )
             )

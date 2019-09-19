@@ -4,5 +4,11 @@ Row
 ### **Current Standings**
 
 ```{r}
-personTotals(main$game)
+person <- list()
+person$standings <- personTotals(main$game)
+personTotalsPlot(
+    z = person$standings,
+    gp = sum(main$game$FlagPlayed),
+    gt = nrow(main$game)
+)
 ```
