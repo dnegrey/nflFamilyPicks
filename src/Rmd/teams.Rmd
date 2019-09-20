@@ -1,0 +1,11 @@
+Row
+----------
+
+### **NFL** {.nflDarkBlueChart}
+
+```{r}
+output$dataTeam <- renderDT({
+    teamsTableDT(main$teamTable)
+})
+DTOutput("dataTeam")
+```

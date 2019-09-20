@@ -1,5 +1,6 @@
 dplyr
 DT
+knitr
 shiny
 rmarkdown
 flexdashboard

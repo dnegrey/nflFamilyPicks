@@ -1,5 +1,12 @@
 Row
 ----------
 
-### **Home**
+### **Current Standings** {.nflDarkBlueChart}
 
+```{r}
+personTotalsPlot(
+    z = main$person$standings,
+    gp = sum(main$game$FlagPlayed),
+    gt = nrow(main$game)
+)
+```
