@@ -4,10 +4,8 @@ Row
 ### **Current Standings** {.nflDarkBlueChart}
 
 ```{r}
-person <- list()
-person$standings <- personTotals(main$game)
 personTotalsPlot(
-    z = person$standings,
+    z = main$person$standings,
     gp = sum(main$game$FlagPlayed),
     gt = nrow(main$game)
 )

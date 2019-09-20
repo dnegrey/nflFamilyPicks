@@ -7,7 +7,10 @@ analyzeData <- function(dir) {
         args = list(
             game = RDataUse(dir, "game"),
             team = RDataUse(dir, "team"),
-            logo = RDataUse(dir, "logo")
+            logo = RDataUse(dir, "logo"),
+            person = list(
+                standings = personTotals(RDataUse(dir, "game"))
+            )
         )
     )
 }
