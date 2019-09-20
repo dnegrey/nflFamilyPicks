@@ -57,7 +57,7 @@ sidebar
     text-align: center;
     font-weight: bold;
     font-size: large;
-    color: #F0AE00;
+    color: #FFB700;
     margin-bottom: 5px;
 }
 #appVersion {
@@ -102,16 +102,17 @@ info page
 */
 
 #section-info {
-    color: #002854;
+    color: #F1EFEF;
 }
 #section-info a {
     font-weight: bold;
+    color: #2780E3;
 }
 #section-information .chart-stage {
     overflow: auto;
 }
 #section-information hr {
-    border-top: 2px solid #013369;
+    border-top: 2px solid #FFB700;
 }
 #section-information h3:first-of-type {
     margin-top: 10px;
@@ -140,3 +141,40 @@ general use
 /*
 app specific
 */
+
+#section-data .nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #D50A0A;
+}
+
+#section-person-1 .chart-stage {
+    overflow: visible;
+}
+
+.nflDarkBlueChart {
+    background-color: #002349;
+}
+.nflBlueChart {
+    background-color: #013369;
+}
+.nflRedChart {
+    background-color: #D50A0A;
+}
+.nflGreenChart {
+    background-color: #4CBB17;
+}
+.nflDarkBlueChart .chart-title,
+.nflBlueChart .chart-title,
+.nflRedChart .chart-title,
+.nflGreenChart .chart-title {
+    color: #FFFFFF;
+}
+#section-picks .datatables thead,
+#section-teams .datatables thead {
+    color: #FFFFFF;
+}
+#section-picks .datatables th {
+    border-bottom: 1px solid #FFFFFF;
+}
+#picksDT .dataTables_scrollBody {
+    border-bottom: 1px solid #FFFFFF;
+}

@@ -1,0 +1,11 @@
+Row
+----------
+
+### **Regular Season** {.nflDarkBlueChart}
+
+```{r}
+output$picksDT <- renderDT({
+    picksTableDT(main$pickTable)
+})
+DTOutput("picksDT")
+```

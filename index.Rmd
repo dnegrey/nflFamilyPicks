@@ -31,6 +31,18 @@ Home {data-icon=fa-home}
 ```{r, child = "src/Rmd/home.Rmd"}
 ```
 
+Picks {data-icon=fa-sliders}
+=========
+
+```{r, child = "src/Rmd/picks.Rmd"}
+```
+
+Teams {data-icon=fa-table}
+=========
+
+```{r, child = "src/Rmd/teams.Rmd"}
+```
+
 Info {data-icon=fa-info-circle}
 =========
 
