@@ -1,7 +1,7 @@
-Row {.tabset .tabset-fade}
+Row
 ----------
 
-### **Teams**
+###
 
 ```{r}
 output$dataTeam <- renderDT({
@@ -12,7 +12,8 @@ output$dataTeam <- renderDT({
             Logo,
             Team,
             Name,
-            ConDiv
+            Conference,
+            Division
         )
     xlt <- unlist(main$logo[tolower(x$Team)])
     x$Logo <- sprintf(x$Logo, xlt, "%")
@@ -23,11 +24,12 @@ output$dataTeam <- renderDT({
         options = list(
             dom = "t",
             pageLength = nrow(x),
-            scrollY = 700,
+            ordering = FALSE,
+            scrollY = 750,
             scrollCollapse = FALSE,
             columnDefs = list(
                 list(
-                    targets = c(0:2, 3),
+                    targets = c(0:4),
                     className = "dt-center"
                 )
             )
@@ -37,14 +39,10 @@ output$dataTeam <- renderDT({
             "Logo",
             "Team",
             "Name",
+            "Conference",
             "Division"
         )
     )
 })
 DTOutput("dataTeam")
-```
-
-### **Games**
-
-```{r}
 ```

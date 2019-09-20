@@ -1,0 +1,146 @@
+Row
+----------
+
+###
+
+```{r}
+output$picksDT <- renderDT({
+    x <- do.call(rbind, lapply(split(main$game, main$game$GameId), gameTranspose))
+    row.names(x) <- NULL
+    xl <- unlist(main$logo)
+    xl <- data.frame(
+        Team = toupper(names(xl)),
+        Logo = as.character(xl),
+        stringsAsFactors = FALSE
+    )
+    y <- x %>%
+        inner_join(xl, "Team") %>%
+        mutate(
+            Logo = sprintf(
+                fmt = "<img src=\"%s\" style=\"height: 15%s;\"</img>",
+                Logo,
+                "%"
+            )
+        ) %>%
+        inner_join(
+            select(main$team, Team, Name),
+            "Team"
+        ) %>%
+        select(
+            GameId,
+            Week,
+            VH,
+            Logo,
+            Name,
+            Score,
+            Team,
+            TeamWon,
+            Dan,
+            Lauren,
+            Patrick,
+            Claire,
+            CC
+        ) %>%
+        mutate(
+            Dan = ifelse(Dan == "", Dan, Logo),
+            Lauren = ifelse(Lauren == "", Lauren, Logo),
+            Patrick = ifelse(Patrick == "", Patrick, Logo),
+            Claire = ifelse(Claire == "", Claire, Logo),
+            CC = ifelse(CC == "", CC, Logo),
+            TeamWon = ifelse(
+                TeamWon == Team, 1, 0
+            )
+        ) %>%
+        arrange(Week, GameId, desc(VH))
+    z <- split(y, y$GameId)
+    z1 <- z$`1`
+    zb <- z1[1, ] %>%
+        mutate(GameId = NA_integer_,
+               Week = NA_integer_,
+               VH = NA_character_,
+               Logo = NA_character_,
+               Name = "",
+               Score = NA_integer_,
+               Team = NA_character_,
+               TeamWon = as.numeric(NA),
+               Dan = NA_character_,
+               Lauren = NA_character_,
+               Patrick = NA_character_,
+               Claire = NA_character_,
+               CC = NA_character_)
+    z1 <- rbind(z1, zb)
+    for (i in 2:length(z)) {
+        zt <- z[[i]]
+        z1 <- rbind(z1, zt, zb)
+    }
+    z <- z1[1:(nrow(z1) - 1), ]
+    rm(z1, zb, zt, i, xl)
+    zc <- withTags(
+        table(
+            class = "display",
+            thead(
+                tr(
+                    th(rowspan = 2, "GameId"),
+                    th(rowspan = 2, "Week"),
+                    th(rowspan = 2, "VH"),
+                    th(rowspan = 2, "Team"),
+                    th(rowspan = 2, ""),
+                    th(rowspan = 2, "Score"),
+                    th(rowspan = 2, "Team"),
+                    th(rowspan = 2, "TeamWon"),
+                    th(colspan = 5, "Picks")
+                ),
+                tr(
+                    th("Dan"), th("Lauren"), th("Patrick"), th("Claire"), th("CC")
+                )
+            )
+        )
+    )
+    datatable(
+        data = z,
+        container = zc,
+        escape = FALSE,
+        class = "row-border",
+        selection = "none",
+        extensions = "Scroller",
+        options = list(
+            dom = "t",
+            pageLength = nrow(z),
+            ordering = FALSE,
+            scrollY = 750,
+            scrollCollapse = FALSE,
+            columnDefs = list(
+                list(
+                    targets = c(0, 2, 6, 7),
+                    visible = FALSE
+                ),
+                list(
+                    targets = c(1, 3, 5, 8:12),
+                    className = "dt-center"
+                )
+            )
+        ),
+        rownames = FALSE
+    ) %>%
+        formatStyle(
+            "TeamWon",
+            target = "row",
+            fontWeight = styleEqual(1, "bold"),
+            color = styleEqual(1, "#2780E3")
+        ) %>%
+        formatStyle(
+            "Name",
+            target = "row",
+            backgroundColor = styleEqual("", "#013369")
+        ) %>%
+        formatStyle(
+            "Week",
+            backgroundColor = styleEqual(1:17, rep("#013369", 17)),
+            color = styleEqual(1:17, rep("#FFFFFF", 17)),
+            fontWeight = styleEqual(1:17, rep("bold", 17)),
+            borderTop = styleEqual(1:17, rep("none", 17)),
+            borderBottom = styleEqual(1:17, rep("none", 17))
+        )
+})
+DTOutput("picksDT")
+```
