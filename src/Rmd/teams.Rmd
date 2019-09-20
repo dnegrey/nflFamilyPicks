@@ -1,11 +1,11 @@
 Row
 ----------
 
-###
+### {.nflDarkBlueChart}
 
 ```{r}
 output$dataTeam <- renderDT({
-    xl <- "<img src=\"%s\" style=\"height: 20%s;\"</img>"
+    xl <- "<img src=\"%s\" style=\"height: 15%s;\"</img>"
     x <- main$team %>%
         mutate(Logo = xl) %>%
         select(
@@ -20,12 +20,13 @@ output$dataTeam <- renderDT({
     datatable(
         data = x,
         escape = FALSE,
+        selection = "none",
         extensions = "Scroller",
         options = list(
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 750,
+            scrollY = 800,
             scrollCollapse = FALSE,
             columnDefs = list(
                 list(

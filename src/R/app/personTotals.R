@@ -61,7 +61,7 @@ personTotalsPlot <- function(z, gp, gt) {
             y = ~sprintf("<b>%s </b>", Person),
             type = "bar",
             marker = list(
-                color = "#013369"
+                color = "#2780E3"
             ),
             orientation = "h",
             hoverinfo = "text",
@@ -76,12 +76,15 @@ personTotalsPlot <- function(z, gp, gt) {
         layout(
             title = "",
             xaxis = list(
-                range = c(0, gt)
+                range = c(0, gt),
+                color = "#FFFFFF",
+                title = "<b>Points</b>"
             ),
             yaxis = list(
                 title = "",
                 categoryorder = "trace",
-                autorange = "reversed"
+                autorange = "reversed",
+                color = "#FFFFFF"
             ),
             margin = 50,
             shapes = list(
@@ -92,7 +95,7 @@ personTotalsPlot <- function(z, gp, gt) {
                     y0 = 0,
                     y1 = 1,
                     yref = "paper",
-                    line = list(color = "#F0AE00")
+                    line = list(color = "#FFB700")
                 )
             ),
             annotations = list(
@@ -103,9 +106,14 @@ personTotalsPlot <- function(z, gp, gt) {
                 showarrow = FALSE,
                 xanchor = "left",
                 font = list(
-                    color = "#F0AE00"
+                    color = "#FFB700"
                 )
-            )
+            ),
+            paper_bgcolor = "#002349",
+            plot_bgcolor = "#002349"
+        ) %>%
+        config(
+            displayModeBar = FALSE
         )
     zp$elementId <- NULL
     return(zp)

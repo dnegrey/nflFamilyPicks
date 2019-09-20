@@ -1,7 +1,7 @@
 Row
 ----------
 
-### **Current Standings**
+### **Current Standings** {.nflDarkBlueChart}
 
 ```{r}
 person <- list()
