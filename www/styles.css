@@ -102,16 +102,17 @@ info page
 */
 
 #section-info {
-    color: #002854;
+    color: #F1EFEF;
 }
 #section-info a {
     font-weight: bold;
+    color: #2780E3;
 }
 #section-information .chart-stage {
     overflow: auto;
 }
 #section-information hr {
-    border-top: 2px solid #013369;
+    border-top: 2px solid #FFB700;
 }
 #section-information h3:first-of-type {
     margin-top: 10px;
