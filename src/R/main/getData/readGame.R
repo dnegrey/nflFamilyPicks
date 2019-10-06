@@ -47,11 +47,6 @@ readGame <- function(f) {
     stopifnot(
         identical(is.na(x$ScoreV), is.na(x$ScoreH)),
         identical(is.na(x$ScoreV), is.na(x$TeamWon)),
-        identical(is.na(x$TeamWon), is.na(x$PickDan)),
-        identical(is.na(x$TeamWon), is.na(x$PickLauren)),
-        identical(is.na(x$TeamWon), is.na(x$PickPatrick)),
-        identical(is.na(x$TeamWon), is.na(x$PickClaire)),
-        identical(is.na(x$TeamWon), is.na(x$PickCC)),
         all(!is.na(x[1:4]))
     )
     return(x)
