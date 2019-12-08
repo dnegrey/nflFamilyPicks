@@ -2,6 +2,6 @@
 
 *Shiny application for displaying NFL family picks and results*
 
-**version 0.13.1**
+**version 0.14.0**
 
 ----------
