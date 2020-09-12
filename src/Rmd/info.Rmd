@@ -1,18 +1,18 @@
-### **Information** {.nflDarkBlueChart}
+### Information
 
-<h3>**Background**</h3>
+<h3>Background</h3>
 
-**This application is designed to visualize the results of our family's contest where we each predict the winner of every game in the 2019 NFL season.**
+This application is designed to visualize the results of our family's contest where we each predict the winner of every game in the 2020 NFL season.
 
-<h3>**Getting Started**</h3>
+<h3>Getting Started</h3>
 
-**The [Home](#section-home) page provides the current standings. Each game outcome that a family member predicts correctly is worth one point. Ties are worth a half point and losses are worth no points.**
+The [Home](#section-home) page provides the current standings. Each game outcome that a family member predicts correctly is worth one point. Ties are worth a half point and losses are worth no points.
 
-**The [Picks](#section-picks) page lists every game by week and includes the outcome of the game along with each family member's prediction.**
+The [Picks](#section-picks) page lists every game by week and includes the outcome of the game along with each family member's prediction.
 
-**The [Teams](#section-teams) page provides some information on each team in the NFL.**
+The [Teams](#section-teams) page provides some information on each team in the NFL.
 
-<h3>**Support**</h3>
+<h3>Support</h3>
 
 * <span class="fa fa-github-square"></span><a href="https://github.com/dnegrey/nflFamilyPicks" target="_blank">Source Code</a>
 * <span class="fa fa-envelope"></span><a href="mailto:dnegrey@gmail.com">Email</a>

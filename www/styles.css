@@ -1,44 +1,49 @@
 /*
-import Monda font from Google (closest to NFL)
+import Open Sans font from Google (closest to Verdana)
 */
 
-@import url('https://fonts.googleapis.com/css?family=Monda');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans');
 
 /*
 global
 */
 
 body {
-    font-family: 'Monda', Arial, sans-serif;
-    background-color: #F1EFEF;
+    font-family: 'Open Sans', sans-serif;
+    background-color: #EAEAEA;
 }
-/*
-::-webkit-scrollbar {
-    display: none;
-}
-*/
 
 /*
-navigation bar
+navbar
 */
 
 .navbar {
-    background-color: #013369;
-    border-bottom: 1px solid #013369;
+    background-color: #4E5D6C;
+    border-bottom: 1px solid #4E5D6C;
 }
 .navbar-logo {
     height: 40px;
-    padding-top: 5px;
+    margin-top: 3px;
 }
 .navbar-brand {
-    font-size: 20px;
+    font-size: 18px;
+    width: 180px;
+    margin-right: 26px;
+    white-space: nowrap;
+    overflow: hidden;
 }
-#navbar a:hover,
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-brand:hover {
+    color: #FFFFFF;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #ABB6C2;
+}
 .navbar-inverse .navbar-nav>.active>a,
 .navbar-inverse .navbar-nav>.active>a:focus {
-    background-color: #D50A0A;
-    color: #FFFFFF;
-    text-decoration: underline;
+    background-color: #ABB6C2;
+    color: #000000;
+    color: rgba(0, 0, 0, 0.9);
 }
 
 /*
@@ -46,73 +51,47 @@ sidebar
 */
 
 #section-sidebar {
-    border: 1px solid #013369;
-    background-color: #013369;
-    color: #FFFFFF;
+    background-color: #2B3E50;
+    border-right: 1px solid #2B3E50;
 }
-#section-sidebar hr {
-    border-top: 2px solid #D50A0A;
-}
-#appTitle {
-    text-align: center;
-    font-weight: bold;
-    font-size: large;
-    color: #FFB700;
-    margin-bottom: 5px;
-}
-#appVersion {
-    text-align: center;
-    font-weight: bold;
-    color: #B0B7BC;
-}
-#lastRefreshDate {
-    background-color: #F1EFEF;
-    color: #013369;
-    font-weight: bold;
-    padding: 5px;
-    border-radius: 3px;
-    text-align: center;
+#section-sidebar .chart-title {
+    display: none;
 }
 #section-sidebar p:not(#appTitle) {
     font-size: small;
 }
+#section-sidebar p:not(#appTitle):not(#appVersion) {
+    color: #FFFFFF;
+    color: rgba(255, 255, 255, 0.5);
+}
+#section-sidebar p:nth-of-type(3) {
+    margin-bottom: 2px;
+}
 #section-sidebar a {
-    color: #0AD5D5;
-    font-weight: bold;
+    color: #DF691A;
 }
-#section-sidebar .shiny-flow-layout > div {
-    padding-right: 0;
+#appTitle {
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 5px;
 }
-.chart-wrapper .chart-stage {
-    overflow: auto;
-}
-.shiny-flow-layout,
-.shiny-flow-layout > div,
-.shiny-flow-layout > div > div {
-    width: 100%;
-}
-.shiny-input-container label {
-    color: #013369;
-    font-weight: bold;
-    font-size: smaller;
+#appVersion {
+    text-align: center;
+    color: #5BC0DE;
 }
 
 /*
 info page
 */
 
-#section-info {
-    color: #F1EFEF;
-}
 #section-info a {
-    font-weight: bold;
-    color: #2780E3;
+    color: #1A90DF;
+}
+#section-info a:hover {
+    color: #DF691A;
 }
 #section-information .chart-stage {
     overflow: auto;
-}
-#section-information hr {
-    border-top: 2px solid #FFB700;
 }
 #section-information h3:first-of-type {
     margin-top: 10px;
@@ -132,49 +111,66 @@ general use
     overflow: hidden !important;
 }
 .plotly * {
-    font-family: 'Monda', Arial, sans-serif !important;
+    font-family: 'Open Sans', sans-serif !important;
 }
 .plotly .legend .bg {
     fill: transparent !important;
+}
+
+/* superhero charts */
+.superHeroDefaultBlue {
+    background-color: #2B3E50;
+}
+.superHeroPrimaryOrange {
+    background-color: #DF691A;
+}
+.superHeroSecondaryGray {
+    background-color: #4E5D6C;
+}
+.superHeroSuccessGreen {
+    background-color: #5CB85C;
+}
+.superHeroDangerRed {
+    background-color: #D9534F;
+}
+.superHeroWarningOrange {
+    background-color: #F0AD4E;
+}
+.superHeroInfoBlue {
+    background-color: #5BC0DE;
+}
+.superHeroLightGray {
+    background-color: #ABB6C2;
+}
+.superHeroDefaultBlue .chart-title,
+.superHeroPrimaryOrange .chart-title,
+.superHeroSuccessGreen .chart-title,
+.superHeroDangerRed .chart-title,
+.superHeroWarningOrange .chart-title,
+.superHeroInfoBlue .chart-title {
+    color: #FFFFFF;
+}
+.superHeroSecondaryGray .chart-title {
+    color: #ABB6C2;
+}
+.superHeroLightGray .chart-title {
+    color: #000000;
+    color: rgba(0, 0, 0, 0.9);
 }
 
 /*
 app specific
 */
 
-#section-data .nav-tabs-custom > .nav-tabs > li.active {
-    border-top-color: #D50A0A;
+/* general */
+.shiny-output-error,
+.js-plotly-plot .plotly,
+.js-plotly-plot .plotly div {
+    min-width: 100%;
 }
-
-#section-person-1 .chart-stage {
-    overflow: visible;
+.shiny-flow-layout > div {
+    width: 100%;
 }
-
-.nflDarkBlueChart {
-    background-color: #002349;
-}
-.nflBlueChart {
-    background-color: #013369;
-}
-.nflRedChart {
-    background-color: #D50A0A;
-}
-.nflGreenChart {
-    background-color: #4CBB17;
-}
-.nflDarkBlueChart .chart-title,
-.nflBlueChart .chart-title,
-.nflRedChart .chart-title,
-.nflGreenChart .chart-title {
-    color: #FFFFFF;
-}
-#section-picks .datatables thead,
-#section-teams .datatables thead {
-    color: #FFFFFF;
-}
-#section-picks .datatables th {
-    border-bottom: 1px solid #FFFFFF;
-}
-#picksDT .dataTables_scrollBody {
-    border-bottom: 1px solid #FFFFFF;
+.shiny-input-container .control-label {
+    text-decoration: underline;
 }
