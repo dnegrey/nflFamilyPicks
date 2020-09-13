@@ -1,7 +1,7 @@
 Row
 ----------
 
-### **Current Standings** {.nflDarkBlueChart}
+### Current Standings
 
 ```{r}
 personTotalsPlot(

@@ -1,7 +1,7 @@
 Row
 ----------
 
-### **Regular Season** {.nflDarkBlueChart}
+### Regular Season
 
 ```{r}
 output$picksDT <- renderDT({

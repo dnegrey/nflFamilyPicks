@@ -1,7 +1,7 @@
 Row
 ----------
 
-### **NFL** {.nflDarkBlueChart}
+### NFL
 
 ```{r}
 output$dataTeam <- renderDT({

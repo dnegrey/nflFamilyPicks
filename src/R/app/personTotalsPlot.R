@@ -20,7 +20,7 @@ personTotalsPlot <- function(z, gp, gt) {
         layout(
             title = "",
             xaxis = list(
-                range = c(0, gt),
+                range = c(0, gp*2),
                 color = "#FFFFFF",
                 title = "<b>Points</b>"
             ),
