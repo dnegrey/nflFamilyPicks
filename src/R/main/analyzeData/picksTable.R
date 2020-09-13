@@ -6,7 +6,7 @@ picksTable <- function(gm, tm) {
         mutate(
             Logo = sprintf(
                 fmt = xl,
-                basename(getwd()),
+                "https://raw.githubusercontent.com/dnegrey/nflFamilyPicks/master",
                 tolower(Team),
                 ifelse(
                     Team == "NYJ", "22.5%",

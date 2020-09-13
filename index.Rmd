@@ -24,7 +24,6 @@ suppressMessages(loadPackages("etc/PACKAGES"))
 sink()
 sourceFunctions("src/R/app")
 load("pub/main.RData")
-addResourcePath(basename(getwd()), getwd())
 ```
 
 Sidebar {.sidebar}
