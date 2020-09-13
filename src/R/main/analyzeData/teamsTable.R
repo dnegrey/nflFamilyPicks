@@ -1,7 +1,20 @@
-teamsTable <- function(tm, lg) {
-    xl <- "<img src=\"%s\" style=\"height: 15%s;\"</img>"
+teamsTable <- function(tm) {
+    xl <- "<img src=\"%s/www/logo/%s.png\" style=\"height: %s;\"</img>"
     x <- tm %>%
-        mutate(Logo = xl) %>%
+        mutate(
+            Logo = sprintf(
+                fmt = xl,
+                basename(getwd()),
+                tolower(Team),
+                ifelse(
+                    Team == "NYJ", "22.5%",
+                    ifelse(
+                        Team == "WSH", "2.25%",
+                        "9%"
+                    )
+                )
+            )
+        ) %>%
         select(
             Logo,
             Team,
@@ -9,7 +22,5 @@ teamsTable <- function(tm, lg) {
             Conference,
             Division
         )
-    xlt <- unlist(lg[tolower(x$Team)])
-    x$Logo <- sprintf(x$Logo, xlt, "%")
     return(x)
 }

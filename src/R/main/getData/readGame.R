@@ -3,7 +3,10 @@ readGame <- function(f) {
         file = f,
         na.strings = "",
         stringsAsFactors = FALSE
-    ) %>%
+    )
+    shp <- which(names(x) == "ScoreH")
+    players <- names(x)[(shp + 1):length(x)]
+    x <- x %>%
         mutate(
             FlagPlayed = !is.na(ScoreV) & !is.na(ScoreH),
             TeamWon = ifelse(
@@ -16,34 +19,24 @@ readGame <- function(f) {
                     )
                 )
             )
-        ) %>%
-        select(
-            GameId,
-            Week,
-            TeamV,
-            TeamH,
-            ScoreV,
-            ScoreH,
-            TeamWon,
-            FlagPlayed,
-            PickDan = Dan,
-            PickLauren = Lauren,
-            PickPatrick = Patrick,
-            PickClaire = Claire,
-            PickCC = CC
-        ) %>%
-        mutate(
-            PointDan = as.numeric(PickDan == TeamWon),
-            PointLauren = as.numeric(PickLauren == TeamWon),
-            PointPatrick = as.numeric(PickPatrick == TeamWon),
-            PointClaire = as.numeric(PickClaire == TeamWon),
-            PointCC = as.numeric(PickCC == TeamWon),
-            PointDan = ifelse(TeamWon == "TIE", 0.5, PointDan),
-            PointLauren = ifelse(TeamWon == "TIE", 0.5, PointLauren),
-            PointPatrick = ifelse(TeamWon == "TIE", 0.5, PointPatrick),
-            PointClaire = ifelse(TeamWon == "TIE", 0.5, PointClaire),
-            PointCC = ifelse(TeamWon == "TIE", 0.5, PointCC)
         )
+    xbn <- c("GameId", "Week", "TeamV", "TeamH",
+             "ScoreV", "ScoreH", "TeamWon", "FlagPlayed")
+    x <- x[c(xbn, players)]
+    names(x)[9:length(x)] <- paste0("Pick", players)
+    for (pl in players) {
+        x[, paste0("Point", pl)] <- ifelse(
+            x$TeamWon == "TIE", 0.5,
+            as.numeric(
+                x[, paste0("Pick", pl)] == x$TeamWon
+            )
+        )
+        xp <- x[, paste0("Pick", pl)]
+        xt <- !x$FlagPlayed |
+            xp == x$TeamV |
+            xp == x$TeamH
+        stopifnot(all(xt))
+    }
     stopifnot(
         identical(is.na(x$ScoreV), is.na(x$ScoreH)),
         identical(is.na(x$ScoreV), is.na(x$TeamWon)),

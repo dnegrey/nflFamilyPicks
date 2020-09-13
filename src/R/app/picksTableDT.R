@@ -12,10 +12,16 @@ picksTableDT <- function(x) {
                     th(rowspan = 2, "Score"),
                     th(rowspan = 2, "Team"),
                     th(rowspan = 2, "TeamWon"),
-                    th(colspan = 5, "Picks")
+                    th(colspan = 7, "Picks")
                 ),
                 tr(
-                    th("Dan"), th("Lauren"), th("Patrick"), th("Claire"), th("CC")
+                    th("Dan"),
+                    th("Lauren"),
+                    th("Patrick"),
+                    th("Claire"),
+                    th("CC"),
+                    th("Grampy"),
+                    th("Isaac")
                 )
             )
         )
@@ -39,7 +45,7 @@ picksTableDT <- function(x) {
                     visible = FALSE
                 ),
                 list(
-                    targets = c(1, 3, 5, 8:12),
+                    targets = c(1, 3, 5, 8:14),
                     className = "dt-center"
                 )
             )
@@ -55,12 +61,12 @@ picksTableDT <- function(x) {
         formatStyle(
             "Name",
             target = "row",
-            backgroundColor = styleEqual("", "#002349")
+            backgroundColor = styleEqual("", "#EAEAEA")
         ) %>%
         formatStyle(
             "Week",
-            backgroundColor = styleEqual(c(NA_character_, paste("Week", 1:17)), rep("#002349", 18)),
-            color = styleEqual(paste("Week", 1:17), rep("#FFFFFF", 17)),
+            backgroundColor = styleEqual(c(NA_character_, paste("Week", 1:17)), rep("#EAEAEA", 18)),
+            color = styleEqual(paste("Week", 1:17), rep("#333333", 17)),
             fontWeight = styleEqual(paste("Week", 1:17), rep("bold", 17)),
             borderTop = styleEqual(c(NA_character_, paste("Week", 1:17)), rep("none", 18)),
             borderBottom = styleEqual(c(NA_character_, paste("Week", 1:17)), rep("none", 18))

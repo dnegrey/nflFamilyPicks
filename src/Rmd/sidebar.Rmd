@@ -1,15 +1,26 @@
-<p id="appTitle">Family Picks 2019</p>
+<p id="appTitle">NFL Family Picks 2020</p>
 
 <p id="appVersion">version `r gitVersion()`</p>
 
 ----------
 
-**Last refreshed on:**
+Application last refreshed:
 
-<p id="lastRefreshDate">`r format(file.info("../../success.txt")$mtime, "%B %d, %Y")`</p>
+```{r}
+alr <- file.info("../../success.txt")$mtime
+appLastRefreshed <- paste0(
+    format(alr, "%B"), " ",
+    as.integer(format(alr, "%d")), ", ",
+    format(alr, "%Y"), " @ ",
+    trimws(format(alr, "%l:%M:%S %p"))
+)
+rm(alr)
+```
+
+<p id="lastRefreshDate">`r appLastRefreshed`</p>
 
 ----------
 
-Visit the [info page](#section-info) for more background information on the data as well as helpful tips for using this application.
+Visit the [info page](#section-info) to learn more about the data and assumptions as well as helpful tips for using this application.
 
 ----------
