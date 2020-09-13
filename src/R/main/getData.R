@@ -15,12 +15,4 @@ getData <- function(dir) {
             f = "var/game.csv"
         )
     )
-    RDataCreate(
-        dir = dir,
-        x = "logo",
-        fun = imageLogo,
-        args = list(
-            d = "www/logo"
-        )
-    )
 }

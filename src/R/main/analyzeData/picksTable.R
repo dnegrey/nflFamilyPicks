@@ -1,50 +1,35 @@
-picksTable <- function(gm, lg, tm) {
+picksTable <- function(gm, tm) {
     x <- do.call(rbind, lapply(split(gm, gm$GameId), gameTranspose))
     row.names(x) <- NULL
-    xl <- unlist(lg)
-    xl <- data.frame(
-        Team = toupper(names(xl)),
-        Logo = as.character(xl),
-        stringsAsFactors = FALSE
-    )
+    xl <- "<img src=\"%s/www/logo/%s.png\" style=\"height: %s;\"</img>"
     y <- x %>%
-        inner_join(xl, "Team") %>%
         mutate(
             Logo = sprintf(
-                fmt = "<img src=\"%s\" style=\"height: 15%s;\"</img>",
-                Logo,
-                "%"
+                fmt = xl,
+                basename(getwd()),
+                tolower(Team),
+                ifelse(
+                    Team == "NYJ", "22.5%",
+                    ifelse(
+                        Team == "WSH", "2.25%",
+                        "9%"
+                    )
+                )
             )
         ) %>%
         inner_join(
             select(tm, Team, Name),
             "Team"
-        ) %>%
-        select(
-            GameId,
-            Week,
-            VH,
-            Logo,
-            Name,
-            Score,
-            Team,
-            TeamWon,
-            Dan,
-            Lauren,
-            Patrick,
-            Claire,
-            CC
-        ) %>%
-        mutate(
-            Dan = ifelse(Dan == "", Dan, Logo),
-            Lauren = ifelse(Lauren == "", Lauren, Logo),
-            Patrick = ifelse(Patrick == "", Patrick, Logo),
-            Claire = ifelse(Claire == "", Claire, Logo),
-            CC = ifelse(CC == "", CC, Logo),
-            TeamWon = ifelse(
-                TeamWon == Team, 1, 0
-            )
-        ) %>%
+        )
+    yn <- names(y)
+    players <- yn[(which(yn == "TeamWon")+1):(which(yn == "Logo")-1)]
+    yb <- c("GameId", "Week", "VH", "Logo", "Name", "Score", "Team", "TeamWon")
+    y <- y[c(yb, players)]
+    for (pl in players) {
+        y[, pl] <- ifelse(y[, pl] == "", "", y$Logo)
+    }
+    y$TeamWon = ifelse(y$TeamWon == y$Team, 1, 0)
+    y <- y %>%
         arrange(Week, GameId, desc(VH)) %>%
         mutate(
             Week = ifelse(
@@ -63,12 +48,10 @@ picksTable <- function(gm, lg, tm) {
                Name = "",
                Score = NA_integer_,
                Team = NA_character_,
-               TeamWon = as.numeric(NA),
-               Dan = NA_character_,
-               Lauren = NA_character_,
-               Patrick = NA_character_,
-               Claire = NA_character_,
-               CC = NA_character_)
+               TeamWon = as.numeric(NA))
+    for (pl in players) {
+        zb[, pl] <- NA_character_
+    }
     z1 <- rbind(zb, z1, zb)
     for (i in 2:length(z)) {
         zt <- z[[i]]
