@@ -29,6 +29,7 @@ picksTable <- function(gm, tm) {
     y <- y %>%
         arrange(Week, GameId, desc(VH)) %>%
         mutate(
+            WeekId = Week,
             Week = ifelse(
                 is.na(lag(Week)) | lag(Week) != Week,
                 paste("Week", Week),
@@ -45,7 +46,8 @@ picksTable <- function(gm, tm) {
                Name = "",
                Score = NA_integer_,
                Team = NA_character_,
-               TeamWon = as.numeric(NA))
+               TeamWon = as.numeric(NA),
+               WeekId = NA_integer_)
     for (pl in players) {
         zb[, pl] <- NA_character_
     }
@@ -56,5 +58,9 @@ picksTable <- function(gm, tm) {
     }
     z <- z1
     row.names(z) <- NULL
+    z$WeekId <- ifelse(
+        !is.na(z$WeekId), z$WeekId,
+        lag(z$WeekId)
+    )
     return(z)
 }
