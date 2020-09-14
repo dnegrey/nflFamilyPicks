@@ -1,19 +1,16 @@
 picksTable <- function(gm, tm) {
     x <- do.call(rbind, lapply(split(gm, gm$GameId), gameTranspose))
     row.names(x) <- NULL
-    xl <- "<img src=\"%s/www/logo/%s.png\" style=\"height: %s;\"</img>"
+    xl <- "<img src=\"%s/www/logo/%s.svg\" style=\"height: %s;\"</img>"
     y <- x %>%
         mutate(
             Logo = sprintf(
                 fmt = xl,
-                "https://raw.githubusercontent.com/dnegrey/nflFamilyPicks/master",
+                basename(getwd()),
                 tolower(Team),
                 ifelse(
                     Team == "NYJ", "22.5%",
-                    ifelse(
-                        Team == "WSH", "2.25%",
-                        "9%"
-                    )
+                    "9%"
                 )
             )
         ) %>%
