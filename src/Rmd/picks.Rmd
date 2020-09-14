@@ -4,8 +4,34 @@ Row
 ### Regular Season
 
 ```{r}
+selectInput(
+    inputId = "picksFilter_Week",
+    label = "Select a Week",
+    choices = c(
+        "Show All",
+        as.character(1:17)
+    )
+)
+picksTable_Filtered <- eventReactive(
+    eventExpr = c(
+        input$picksFilter_Week
+    ),
+    valueExpr = {
+        w <- input$picksFilter_Week
+        x <- main$pickTable
+        if (w != "Show All") {
+            x <- x %>%
+                filter(WeekId == as.integer(w))
+        }
+        x <- select(x, -WeekId)
+        return(x)
+    }
+)
+```
+
+```{r}
 output$picksDT <- renderDT({
-    picksTableDT(main$pickTable)
+    picksTableDT(picksTable_Filtered())
 })
 DTOutput("picksDT")
 ```
