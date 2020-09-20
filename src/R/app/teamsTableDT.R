@@ -8,7 +8,7 @@ teamsTableDT <- function(x) {
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 750,
+            scrollY = 575,
             scrollCollapse = FALSE,
             columnDefs = list(
                 list(

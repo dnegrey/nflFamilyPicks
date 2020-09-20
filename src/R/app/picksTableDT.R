@@ -37,7 +37,7 @@ picksTableDT <- function(x) {
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 700,
+            scrollY = 455,
             scrollCollapse = FALSE,
             columnDefs = list(
                 list(
