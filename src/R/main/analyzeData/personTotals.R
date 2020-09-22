@@ -29,7 +29,9 @@ personTotals <- function(x) {
             "2" = "2nd",
             "3" = "3rd",
             "4" = "4th",
-            "5" = "5th"
+            "5" = "5th",
+            "6" = "6th",
+            "7" = "7th"
         )
         if (sum(z$PlaceRank == z[i, ]$PlaceRank) > 1) {
             z[i, ]$Place <- paste(z[i, ]$Place, "(T)")
