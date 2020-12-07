@@ -1,7 +1,7 @@
 Row
 ----------
 
-### NFL
+### **NFL**
 
 ```{r}
 output$dataTeam <- renderDT({

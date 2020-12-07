@@ -1,7 +1,7 @@
 Row
 ----------
 
-### Regular Season
+### **Regular Season**
 
 ```{r}
 selectInput(
