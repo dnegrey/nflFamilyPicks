@@ -16,7 +16,7 @@ plotlyOutput(
 )
 ```
 
-### **Weekly Totals**
+### **Cumulative Standings**
 
 ```{r}
 output$homeTotalsByWeekPlot <- renderPlotly(
@@ -32,15 +32,11 @@ plotlyOutput(
 Row
 ----------
 
-### **Week by Week**
+### **Weekly Results**
 
 ```{r}
 output$test <- renderPlotly(
-    expr = {
-        x <- personPointsByWeekPlot(main$person$weekly)
-        y <- subplot(x$`1`, x$`2`, x$`3`, x$`4`)
-        return(y)
-    }
+    expr = personPointsByWeekPlot(main$person$weekly)
 )
 plotlyOutput("test")
 ```

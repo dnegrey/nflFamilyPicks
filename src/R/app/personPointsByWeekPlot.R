@@ -1,7 +1,15 @@
 personPointsByWeekPlot <- function(x) {
     y <- lapply(split(x, x$Week), function(v){
         v <- v %>%
-            arrange(Player)
+            mutate(
+                PlayerName = Player,
+                PlayerOrder = ifelse(Player == "CC", 0, 1),
+                Player = ifelse(
+                    Player == "CC", Player,
+                    substr(Player, 1, 1)
+                )
+            ) %>%
+            arrange(PlayerOrder, PlayerName)
         vw <- unique(v$Week)
         vg <- unique(v$Games)
         vp <- plot_ly(v) %>%
@@ -15,7 +23,7 @@ personPointsByWeekPlot <- function(x) {
                 hoverinfo = "text",
                 text = ~sprintf(
                     fmt = "%s: %s point%s",
-                    Player,
+                    PlayerName,
                     Points,
                     ifelse(Points == 1, "", "s")
                 )
@@ -23,12 +31,13 @@ personPointsByWeekPlot <- function(x) {
             layout(
                 showlegend = FALSE,
                 xaxis = list(
-                    title = ""
+                    title = "",
+                    categoryarray = names,
+                    categoryorder = "array"
                 ),
                 yaxis = list(
                     title = "<b>Points</b>",
-                    range = 0:20,
-                    dtick = 1
+                    range = 0:20
                 ),
                 shapes = list(
                     list(
@@ -39,7 +48,7 @@ personPointsByWeekPlot <- function(x) {
                         y0 = vg,
                         y1 = vg,
                         line = list(
-                            width = 5,
+                            width = 3,
                             color = "#D50A0A"
                         )
                     )
@@ -61,64 +70,7 @@ personPointsByWeekPlot <- function(x) {
         vp$elementId <- NULL
         return(vp)
     })
-    # 
-    # 
-    # xcl <- brewer.pal(length(unique(x$Player)), "Paired")
-    # xg <- x %>%
-    #     select(Week, Games, GamesCum) %>%
-    #     unique() %>%
-    #     arrange(Week)
-    # y <- plot_ly(colors = xcl) %>%
-    #     add_trace(
-    #         data = xg,
-    #         x = ~Week,
-    #         y = ~GamesCum,
-    #         type = "scatter",
-    #         mode = "lines",
-    #         line = list(
-    #             color = "#999999"
-    #         ),
-    #         hoverinfo = "text",
-    #         text = ~paste(
-    #             sprintf("<b>NFL Week %s</b>", Week),
-    #             sprintf("%s games played", Games),
-    #             sprintf("%s season-to-date", GamesCum),
-    #             sep = "<br>"
-    #         ),
-    #         name = "NFL"
-    #     ) %>%
-    #     add_trace(
-    #         data = x,
-    #         x = ~Week,
-    #         y = ~PointsCum,
-    #         type = "scatter",
-    #         mode = "markers+lines",
-    #         color = ~Player,
-    #         marker = list(
-    #             size = 10
-    #         ),
-    #         hoverinfo = "text",
-    #         text = ~paste(
-    #             sprintf("<b>Player: </b> %s", Player),
-    #             sprintf("<b>Week: </b> %s", Week),
-    #             sprintf("<b>Result: </b> %s points (%s games)", Points, Games),
-    #             sprintf("<b>Season: </b> %s points (%s games)", PointsCum, GamesCum),
-    #             sep = "<br>"
-    #         )
-    #     ) %>%
-    #     layout(
-    #         title = "",
-    #         xaxis = list(
-    #             title = "<b>Week</b>",
-    #             type = "category"
-    #         ),
-    #         yaxis = list(
-    #             title = "<b>Cumulative Points</b>"
-    #         )
-    #     ) %>%
-    #     config(
-    #         displayModeBar = FALSE
-    #     )
-    # y$elementId <- NULL
-    return(y)
+    z <- subplot(y, nrows = 2, shareX = TRUE, shareY = TRUE)
+    z$elementId <- NULL
+    return(z)
 }
