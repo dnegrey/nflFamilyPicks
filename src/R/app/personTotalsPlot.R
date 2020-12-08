@@ -42,7 +42,6 @@ personTotalsPlot <- function(z, gp, gt) {
                 categoryorder = "trace",
                 autorange = "reversed"
             ),
-            margin = 50,
             shapes = list(
                 list(
                     type = "line",
