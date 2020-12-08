@@ -1,12 +1,42 @@
 Row
 ----------
 
-### Current Standings
+### **Current Standings**
 
 ```{r}
-personTotalsPlot(
-    z = main$person$standings,
-    gp = sum(main$game$FlagPlayed),
-    gt = nrow(main$game)
+output$homeCurrentStandingsPlot <- renderPlotly(
+    expr = personTotalsPlot(
+        z = main$person$standings,
+        gp = sum(main$game$FlagPlayed),
+        gt = nrow(main$game)
+    )
 )
+plotlyOutput(
+    outputId = "homeCurrentStandingsPlot"
+)
+```
+
+### **Cumulative Standings**
+
+```{r}
+output$homeTotalsByWeekPlot <- renderPlotly(
+    expr = personTotalsByWeekPlot(
+        x = main$person$weekly
+    )
+)
+plotlyOutput(
+    outputId = "homeTotalsByWeekPlot"
+)
+```
+
+Row
+----------
+
+### **Weekly Results**
+
+```{r}
+output$test <- renderPlotly(
+    expr = personPointsByWeekPlot(main$person$weekly)
+)
+plotlyOutput("test")
 ```

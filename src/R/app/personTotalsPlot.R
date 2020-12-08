@@ -1,11 +1,25 @@
 personTotalsPlot <- function(z, gp, gt) {
+    xm <- round(gt*1.1)
+    if (gp < gt/2) {
+        xm <- round(gp*1.5)
+    }
     zp <- plot_ly(z) %>%
+        add_segments(
+            x = 0,
+            xend = ~Points,
+            y = ~sprintf("<b>%s </b>", Person),
+            yend = ~sprintf("<b>%s </b>", Person),
+            showlegend = FALSE,
+            color = I("#2780E3")
+        ) %>%
         add_trace(
             x = ~Points,
             y = ~sprintf("<b>%s </b>", Person),
-            type = "bar",
+            type = "scatter",
+            mode = "markers",
             marker = list(
-                color = "#2780E3"
+                color = "#2780E3",
+                size = 20
             ),
             orientation = "h",
             hoverinfo = "text",
@@ -20,17 +34,14 @@ personTotalsPlot <- function(z, gp, gt) {
         layout(
             title = "",
             xaxis = list(
-                range = c(0, gp*2),
-                color = "#FFFFFF",
+                range = c(0, xm),
                 title = "<b>Points</b>"
             ),
             yaxis = list(
                 title = "",
                 categoryorder = "trace",
-                autorange = "reversed",
-                color = "#FFFFFF"
+                autorange = "reversed"
             ),
-            margin = 50,
             shapes = list(
                 list(
                     type = "line",
@@ -39,7 +50,7 @@ personTotalsPlot <- function(z, gp, gt) {
                     y0 = 0,
                     y1 = 1,
                     yref = "paper",
-                    line = list(color = "#FFB700")
+                    line = list(color = "#E38A27")
                 )
             ),
             annotations = list(
@@ -50,11 +61,9 @@ personTotalsPlot <- function(z, gp, gt) {
                 showarrow = FALSE,
                 xanchor = "left",
                 font = list(
-                    color = "#FFB700"
+                    color = "#E38A27"
                 )
-            ),
-            paper_bgcolor = "#002349",
-            plot_bgcolor = "#002349"
+            )
         ) %>%
         config(
             displayModeBar = FALSE
