@@ -36,10 +36,10 @@ Sidebar {.sidebar}
 Home {data-icon=fa-home}
 =========
 
-```{r, child = "src/Rmd/home.Rmd"}
+```{r}
 ```
 
-Picks {data-icon=fa-sliders}
+Picks {data-icon=fa-sliders data-orientation=columns}
 =========
 
 ```{r, child = "src/Rmd/picks.Rmd"}
