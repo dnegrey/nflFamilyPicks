@@ -39,6 +39,12 @@ Home {data-icon=fa-home}
 ```{r}
 ```
 
+Standings {data-icon=fa-trophy data-orientation=columns}
+=========
+
+```{r, child = "src/Rmd/standings.Rmd"}
+```
+
 Picks {data-icon=fa-sliders data-orientation=columns}
 =========
 
