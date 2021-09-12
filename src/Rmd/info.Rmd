@@ -2,7 +2,7 @@
 
 <h3>Background</h3>
 
-This application is designed to visualize the results of our family's contest where we each predict the winner of every game in the 2020 NFL season.
+This application is designed to visualize the results of our family's contest where we each predict the winner of every game in the 2021 NFL season.
 
 <h3>Getting Started</h3>
 

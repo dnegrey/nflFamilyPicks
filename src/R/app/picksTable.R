@@ -1,7 +1,7 @@
 picksTable <- function(gm, tm) {
     x <- do.call(rbind, lapply(split(gm, gm$GameId), gameTranspose))
     row.names(x) <- NULL
-    xl <- "<img src=\"%s/www/logo/%s.svg\" style=\"height: %s;\"</img>"
+    xl <- "<img src=\"%s/www/logo/%s.svg\" class=\"dtTeamLogo\"</img>"
     y <- x %>%
         mutate(
             Logo = sprintf(

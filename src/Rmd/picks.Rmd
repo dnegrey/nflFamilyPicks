@@ -1,37 +1,103 @@
-Row
+Column {data-width=250}
+----------
+
+### **Filters**
+
+```{r}
+inputPanel(
+    selectInput(
+        inputId = "picksFilter_Family",
+        label = "Select Family",
+        choices = levels(factor(main$person$Family)),
+        multiple = FALSE
+    ),
+    sliderInput(
+        inputId = "picksFilter_Weeks",
+        label = "Select Week(s)",
+        min = 1,
+        max = 18,
+        value = c(1, 18),
+        step = 1
+    ),
+    radioButtons(
+        inputId = "picksFilter_ByTeam",
+        label = "Limit to Team?",
+        choices = c("No", "Yes"),
+        inline = TRUE
+    ),
+    conditionalPanel(
+        condition = "input.picksFilter_ByTeam == 'Yes'",
+        selectInput(
+            inputId = "picksFilter_Team",
+            label = "Select Team",
+            choices = main$team$Name,
+            multiple = FALSE
+        )
+    )
+)
+```
+
+```{r}
+picks <- eventReactive(
+    eventExpr = list(
+        input$picksFilter_Family,
+        input$picksFilter_Weeks,
+        input$picksFilter_ByTeam,
+        input$picksFilter_Team
+    ),
+    valueExpr = {
+        xfm <- input$picksFilter_Family
+        xwk <- input$picksFilter_Weeks
+        xbt <- input$picksFilter_ByTeam
+        xtm <- input$picksFilter_Team
+        x <- main$picks %>%
+            inner_join(main$person, "Person") %>%
+            filter(
+                Family == xfm,
+                Week >= xwk[1],
+                Week <= xwk[2]
+            )
+        if (xbt == "Yes") {
+            xt <- main$team %>%
+                filter(Name == xtm)
+            xt <- xt$Team
+            x <- x %>%
+                filter(
+                    TeamV == xt | TeamH == xt
+                )
+        }
+        x <- x %>%
+            left_join(main$game, c("Week", "Game", "TeamV", "TeamH")) %>%
+        select(
+            Week,
+            Game,
+            TeamV,
+            TeamH,
+            ScoreV,
+            ScoreH,
+            Name,
+            Pick
+        ) %>%
+            arrange(
+                Week,
+                Game,
+                Name
+            )
+        y <- gameTranspose(x)
+        return(y)
+    }
+)
+```
+
+Column {data-width=750}
 ----------
 
 ### **Regular Season**
 
 ```{r}
-selectInput(
-    inputId = "picksFilter_Week",
-    label = "Select a Week",
-    choices = c(
-        "Show All",
-        as.character(1:17)
-    )
-)
-picksTable_Filtered <- eventReactive(
-    eventExpr = c(
-        input$picksFilter_Week
-    ),
-    valueExpr = {
-        w <- input$picksFilter_Week
-        x <- main$pickTable
-        if (w != "Show All") {
-            x <- x %>%
-                filter(WeekId == as.integer(w))
-        }
-        x <- select(x, -WeekId)
-        return(x)
-    }
-)
-```
-
-```{r}
 output$picksDT <- renderDT({
-    picksTableDT(picksTable_Filtered())
+    picksTableDT(picks())
 })
 DTOutput("picksDT")
+
 ```

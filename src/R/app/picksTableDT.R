@@ -1,34 +1,6 @@
 picksTableDT <- function(x) {
-    yc <- withTags(
-        table(
-            class = "row-border",
-            thead(
-                tr(
-                    th(rowspan = 2, "GameId"),
-                    th(rowspan = 2, ""),
-                    th(rowspan = 2, "VH"),
-                    th(rowspan = 2, "Team"),
-                    th(rowspan = 2, ""),
-                    th(rowspan = 2, "Score"),
-                    th(rowspan = 2, "Team"),
-                    th(rowspan = 2, "TeamWon"),
-                    th(colspan = 7, "Picks")
-                ),
-                tr(
-                    th("Dan"),
-                    th("Lauren"),
-                    th("Patrick"),
-                    th("Claire"),
-                    th("CC"),
-                    th("Grampy"),
-                    th("Isaac")
-                )
-            )
-        )
-    )
     y <- datatable(
         data = x,
-        container = yc,
         class = "row-border",
         escape = FALSE,
         selection = "none",
@@ -37,7 +9,7 @@ picksTableDT <- function(x) {
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 455,
+            scrollY = 700,
             scrollCollapse = FALSE,
             columnDefs = list(
                 list(
