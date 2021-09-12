@@ -1,0 +1,54 @@
+Column {data-width=250}
+----------
+
+### **Filters**
+
+```{r}
+inputPanel(
+    radioButtons(
+        inputId = "standingsFilter_ByFamily",
+        label = "Select a Specific Family?",
+        choices = c("No", "Yes"),
+        inline = TRUE
+    ),
+    conditionalPanel(
+        condition = "input.standingsFilter_ByFamily == 'Yes'",
+        selectInput(
+            inputId = "standingsFilter_Family",
+            label = "Select Family",
+            choices = levels(factor(main$person$Family)),
+            multiple = FALSE
+        )
+    )
+)
+```
+
+```{r}
+standings <- eventReactive(
+    eventExpr = list(
+        input$standingsFilter_ByFamily,
+        input$standingsFilter_Family
+    ),
+    valueExpr = {
+        xbf <- input$standingsFilter_ByFamily
+        xfm <- input$standingsFilter_Family
+        x <- personTotals(main)
+        if (xbf == "Yes") {
+            x <- filter(x, Family == xfm)
+        }
+        return(x)
+    }
+)
+```
+
+Column {data-width=750}
+----------
+
+### **Regular Season**
+
+```{r}
+output$standingsDT <- renderDT({
+    standingsTableDT(standings())
+})
+DTOutput("standingsDT")
+```
