@@ -1,37 +1,116 @@
-Row
+Column {data-width=250}
 ----------
 
-### **Regular Season**
+### **Filters**
 
 ```{r}
-selectInput(
-    inputId = "picksFilter_Week",
-    label = "Select a Week",
-    choices = c(
-        "Show All",
-        as.character(1:17)
+inputPanel(
+    selectInput(
+        inputId = "picksFilter_Family",
+        label = "Select Family",
+        choices = levels(factor(main$person$Family)),
+        multiple = FALSE
+    ),
+    sliderInput(
+        inputId = "picksFilter_Weeks",
+        label = "Select Week(s)",
+        min = 1,
+        max = 18,
+        value = c(1, 18),
+        step = 1
+    ),
+    radioButtons(
+        inputId = "picksFilter_ByTeam",
+        label = "Select a Specific Team?",
+        choices = c("No", "Yes"),
+        inline = TRUE
+    ),
+    conditionalPanel(
+        condition = "input.picksFilter_ByTeam == 'Yes'",
+        selectInput(
+            inputId = "picksFilter_Team",
+            label = "Select Team",
+            choices = main$team$Name,
+            multiple = FALSE
+        )
     )
 )
-picksTable_Filtered <- eventReactive(
-    eventExpr = c(
-        input$picksFilter_Week
+```
+
+```{r}
+picks <- eventReactive(
+    eventExpr = list(
+        input$picksFilter_Family,
+        input$picksFilter_Weeks,
+        input$picksFilter_ByTeam,
+        input$picksFilter_Team
     ),
     valueExpr = {
-        w <- input$picksFilter_Week
-        x <- main$pickTable
-        if (w != "Show All") {
+        xfm <- input$picksFilter_Family
+        xwk <- input$picksFilter_Weeks
+        xbt <- input$picksFilter_ByTeam
+        xtm <- input$picksFilter_Team
+        x <- main$picks %>%
+            inner_join(main$person, "Person") %>%
+            filter(
+                Family == xfm,
+                Week >= xwk[1],
+                Week <= xwk[2]
+            )
+        if (xbt == "Yes") {
+            xt <- main$team %>%
+                filter(Name == xtm)
+            xt <- xt$Team
             x <- x %>%
-                filter(WeekId == as.integer(w))
+                filter(
+                    TeamV == xt | TeamH == xt
+                )
         }
-        x <- select(x, -WeekId)
+        x <- x %>%
+            left_join(main$game, c("Week", "Game", "TeamV", "TeamH")) %>%
+        select(
+            Week,
+            Game,
+            TeamV,
+            TeamH,
+            ScoreV,
+            ScoreH,
+            Name,
+            Pick
+        ) %>%
+            arrange(
+                Week,
+                Game,
+                Name
+            ) %>%
+            mutate(
+                TeamWon = ifelse(
+                    ScoreV > ScoreH, TeamV,
+                    ifelse(
+                        ScoreV < ScoreH, TeamH,
+                        NA_character_
+                    )
+                )
+            )
         return(x)
     }
 )
 ```
 
+Column {data-width=750}
+----------
+
+### **Regular Season**
+
 ```{r}
 output$picksDT <- renderDT({
-    picksTableDT(picksTable_Filtered())
+    validate(
+        need(
+            expr = nrow(picks()) > 0,
+            message = "No picks available. Try changing your filters."
+        )
+    )
+    picksTableDT(picksTable(picks(), main$team))
 })
 DTOutput("picksDT")
 ```

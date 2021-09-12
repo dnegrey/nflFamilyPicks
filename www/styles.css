@@ -174,3 +174,8 @@ app specific
 .shiny-input-container .control-label {
     text-decoration: underline;
 }
+
+/* teams */
+.dtTeamLogo {
+    height: 45px;
+}

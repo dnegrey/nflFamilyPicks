@@ -5,7 +5,7 @@ Row
 
 ```{r}
 output$dataTeam <- renderDT({
-    teamsTableDT(main$teamTable)
+    teamsTableDT(teamsTable(main$team))
 })
 DTOutput("dataTeam")
 ```

@@ -1,4 +1,4 @@
-<p id="appTitle">NFL Family Picks 2020</p>
+<p id="appTitle">NFL Family Picks 2021</p>
 
 <p id="appVersion">version `r gitVersion()`</p>
 
