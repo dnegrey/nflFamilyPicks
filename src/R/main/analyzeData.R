@@ -8,8 +8,7 @@ analyzeData <- function(dir) {
             game = RDataUse(dir, "game"),
             person = RDataUse(dir, "person"),
             picks = RDataUse(dir, "picks"),
-            team = RDataUse(dir, "team"),
-            teamTable = teamsTable(RDataUse(dir, "team"))
+            team = RDataUse(dir, "team")
         )
     )
 }

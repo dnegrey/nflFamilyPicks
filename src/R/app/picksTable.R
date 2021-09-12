@@ -1,17 +1,16 @@
-picksTable <- function(gm, tm) {
-    x <- do.call(rbind, lapply(split(gm, gm$GameId), gameTranspose))
-    row.names(x) <- NULL
+picksTable <- function(xp, tm) {
+    x <- picksTranspose(xp) %>%
+        mutate(
+            Game = dense_rank(as.integer(paste0(Week, Game)))
+        )
+    names(x)[names(x) == "Game"] <- "GameId"
     xl <- "<img src=\"%s/www/logo/%s.svg\" class=\"dtTeamLogo\"</img>"
     y <- x %>%
         mutate(
             Logo = sprintf(
                 fmt = xl,
                 basename(getwd()),
-                tolower(Team),
-                ifelse(
-                    Team == "NYJ", "22.5%",
-                    "9%"
-                )
+                tolower(Team)
             )
         ) %>%
         inner_join(
@@ -25,42 +24,49 @@ picksTable <- function(gm, tm) {
     for (pl in players) {
         y[, pl] <- ifelse(y[, pl] == "", "", y$Logo)
     }
-    y$TeamWon = ifelse(y$TeamWon == y$Team, 1, 0)
+    y$TeamWon <- ifelse(y$TeamWon == y$Team, 1, 0)
     y <- y %>%
         arrange(Week, GameId, desc(VH)) %>%
         mutate(
-            WeekId = Week,
+            # WeekId = Week,
+            # Week = ifelse(
+            #     is.na(lag(Week)) | lag(Week) != Week,
+            #     paste("Week", Week),
+            #     NA_character_
+            # ),
             Week = ifelse(
-                is.na(lag(Week)) | lag(Week) != Week,
-                paste("Week", Week),
-                NA_character_
+                VH == "V", paste("Week", Week), NA_character_
             )
         )
     z <- split(y, y$GameId)
     z1 <- z$`1`
     zb <- z1[1, ] %>%
-        mutate(GameId = NA_integer_,
-               Week = NA_integer_,
-               VH = NA_character_,
-               Logo = NA_character_,
-               Name = "",
-               Score = NA_integer_,
-               Team = NA_character_,
-               TeamWon = as.numeric(NA),
-               WeekId = NA_integer_)
+        mutate(
+            GameId = NA_integer_,
+            Week = NA_integer_,
+            VH = NA_character_,
+            Logo = NA_character_,
+            Name = "",
+            Score = NA_integer_,
+            Team = NA_character_,
+            TeamWon = as.numeric(NA)#,
+            # WeekId = NA_integer_
+        )
     for (pl in players) {
         zb[, pl] <- NA_character_
     }
     z1 <- rbind(zb, z1, zb)
-    for (i in 2:length(z)) {
-        zt <- z[[i]]
-        z1 <- rbind(z1, zt, zb)
+    if (length(z) > 1) {
+        for (i in 2:length(z)) {
+            zt <- z[[i]]
+            z1 <- rbind(z1, zt, zb)
+        }
     }
     z <- z1
     row.names(z) <- NULL
-    z$WeekId <- ifelse(
-        !is.na(z$WeekId), z$WeekId,
-        lag(z$WeekId)
-    )
+    # z$WeekId <- ifelse(
+    #     !is.na(z$WeekId), z$WeekId,
+    #     lag(z$WeekId)
+    # )
     return(z)
 }

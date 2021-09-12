@@ -1,4 +1,4 @@
-gameTranspose <- function(g) {
+picksTranspose <- function(g) {
     x <- rbind(
         mutate(g, Team = TeamV, Score = ScoreV, VH = "V"),
         mutate(g, Team = TeamH, Score = ScoreH, VH = "H")
@@ -17,17 +17,19 @@ gameTranspose <- function(g) {
                 VH,
                 Team,
                 Score,
+                TeamWon,
                 Person
             )
-        names(xp)[6] <- pl
+        names(xp)[length(xp)] <- pl
         if (pl == players[1]) {
             y <- xp
         } else {
             y <- y %>%
-                left_join(xp, c("Week", "Game", "VH", "Team", "Score"))
+                left_join(xp, c("Week", "Game", "VH", "Team", "Score", "TeamWon"))
         }
     }
     z <- y %>%
         arrange(Week, Game, desc(VH))
+    row.names(z) <- NULL
     return(z)
 }

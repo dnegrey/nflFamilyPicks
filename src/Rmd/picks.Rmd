@@ -21,7 +21,7 @@ inputPanel(
     ),
     radioButtons(
         inputId = "picksFilter_ByTeam",
-        label = "Limit to Team?",
+        label = "Select a Specific Team?",
         choices = c("No", "Yes"),
         inline = TRUE
     ),
@@ -82,9 +82,17 @@ picks <- eventReactive(
                 Week,
                 Game,
                 Name
+            ) %>%
+            mutate(
+                TeamWon = ifelse(
+                    ScoreV > ScoreH, TeamV,
+                    ifelse(
+                        ScoreV < ScoreH, TeamH,
+                        NA_character_
+                    )
+                )
             )
-        y <- gameTranspose(x)
-        return(y)
+        return(x)
     }
 )
 ```
@@ -96,8 +104,13 @@ Column {data-width=750}
 
 ```{r}
 output$picksDT <- renderDT({
-    picksTableDT(picks())
+    validate(
+        need(
+            expr = nrow(picks()) > 0,
+            message = "No picks available. Try changing your filters."
+        )
+    )
+    picksTableDT(picksTable(picks(), main$team))
 })
 DTOutput("picksDT")
-
 ```
