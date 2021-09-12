@@ -8,6 +8,8 @@ This application is designed to visualize the results of our family's contest wh
 
 The [Home](#section-home) page provides the current standings as well as the weekly totals. Each game outcome that a family member predicts correctly is worth one point. Ties are worth a half point and losses are worth no points.
 
+The [Standings](#section-standings) page provides the current standings in tabular form - both in total and by family.
+
 The [Picks](#section-picks) page lists every game by week and includes the outcome of the game along with each family member's prediction.
 
 The [Teams](#section-teams) page provides some information on each team in the NFL.
