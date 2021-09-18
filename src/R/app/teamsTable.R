@@ -1,10 +1,10 @@
 teamsTable <- function(tm) {
-    xl <- "<img src=\"%s/www/logo/%s.svg\" class=\"dtTeamLogo\"</img>"
+    xl <- "<img src=\"logo/%s.svg\" class=\"dtTeamLogo\"</img>"
     x <- tm %>%
         mutate(
             Logo = sprintf(
                 fmt = xl,
-                basename(getwd()),
+                # basename(getwd()),
                 tolower(Team)
             )
         ) %>%

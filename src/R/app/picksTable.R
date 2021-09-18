@@ -4,12 +4,11 @@ picksTable <- function(xp, tm) {
             Game = dense_rank(as.integer(paste0(Week, Game)))
         )
     names(x)[names(x) == "Game"] <- "GameId"
-    xl <- "<img src=\"%s/www/logo/%s.svg\" class=\"dtTeamLogo\"</img>"
+    xl <- "<img src=\"logo/%s.svg\" class=\"dtTeamLogo\"</img>"
     y <- x %>%
         mutate(
             Logo = sprintf(
                 fmt = xl,
-                basename(getwd()),
                 tolower(Team)
             )
         ) %>%

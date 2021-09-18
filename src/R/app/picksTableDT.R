@@ -29,13 +29,11 @@ picksTableDT <- function(x) {
         class = "row-border",
         escape = FALSE,
         selection = "none",
-        extensions = "Scroller",
+        extensions = "Responsive",
         options = list(
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 550,
-            scrollCollapse = FALSE,
             columnDefs = list(
                 list(
                     targets = c(0, 2, 6, 7),
