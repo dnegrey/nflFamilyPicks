@@ -4,38 +4,28 @@ infoModal <- function(id, target) {
           hr(),
           h4("Background"),
           p(paste(
-              "This application is designed to facilitate exploration of",
-              "marine traffic data using information being transmitted from",
-              "ships via their AIS signal."
+              "This application is designed to illustrate the results of our",
+              "family's contest where we each predict the winner of every game",
+              "in the 2021 NFL season."
           )),
           message_box(
               header = a(
-                  href = "https://www.marinetraffic.com/blog/information-transmitted-via-ais-signal/",
+                  href = "https://github.com/dnegrey/nflFamilyPicks",
                   target = "_blank",
-                  "Bill Lines (MarineTraffic Blog)"
+                  "Source Code | GitHub"
               ),
               class = "icon",
-              icon_name = "quote left",
-              content = paste(
-                  "The International Maritime Organization SOLAS Convention",
-                  "requires an Automatic Identification System (AIS) to be",
-                  "fitted on every ship, with the exception of warships,",
-                  "leisure craft and fishing boats. The system was",
-                  "introduced primarily for safety reasons by helping",
-                  "government authorities to identify vessels, assist in",
-                  "search and rescue operations as well as provide",
-                  "supplementary information from other navigational",
-                  "systems such as radar."
-              )
+              icon_name = "github",
+              content = NULL
           ),
           h4("Usage"),
           p(paste(
-              "Use the dropdown menus to select a vessel type and name.",
-              "For the given vessel selected, the map will display markers",
-              "for the consecutive observations where the vessel sailed its",
-              "longest distance. In cases where a vessel has the same maximum",
-              "distance measured across multiple consecutive observations, the",
-              "most recent is displayed."
+              "Choose a section from the menu at the top. The \"Standings\"",
+              "section provides the current standings in tabular form - both",
+              "in total and by family. The \"Picks\" section lists every game",
+              "by week and includes the outcome of the game along with each",
+              "family member's prediction. The \"Teams\" section provides",
+              "some information about each team in the NFL."
           ))
     )
 }
