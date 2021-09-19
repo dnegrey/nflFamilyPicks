@@ -3,13 +3,11 @@ teamsTableDT <- function(x) {
         data = x,
         escape = FALSE,
         selection = "none",
-        extensions = "Scroller",
+        extensions = "Responsive",
         options = list(
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 575,
-            scrollCollapse = FALSE,
             columnDefs = list(
                 list(
                     targets = c(0:4),

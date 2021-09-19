@@ -15,13 +15,11 @@ standingsTableDT <- function(x) {
             ifelse(xgp == 1, "", "s")
         ),
         selection = "none",
-        extensions = "Scroller",
+        extensions = "Responsive",
         options = list(
             dom = "t",
             pageLength = nrow(x),
             ordering = FALSE,
-            scrollY = 550,
-            scrollCollapse = FALSE,
             columnDefs = list(
                 list(
                     targets = c(2, 3, 4, 5, 6),

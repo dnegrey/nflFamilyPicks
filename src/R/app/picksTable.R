@@ -1,72 +1,71 @@
 picksTable <- function(xp, tm) {
+    xl <- "<img src=\"logo/%s.svg\" class=\"dtTeamLogo\"</img>"
     x <- picksTranspose(xp) %>%
+        arrange(Week, Game, desc(VH)) %>%
         mutate(
-            Game = dense_rank(as.integer(paste0(Week, Game)))
-        )
-    names(x)[names(x) == "Game"] <- "GameId"
-    xl <- "<img src=\"%s/www/logo/%s.svg\" class=\"dtTeamLogo\"</img>"
-    y <- x %>%
-        mutate(
-            Logo = sprintf(
-                fmt = xl,
-                basename(getwd()),
-                tolower(Team)
-            )
+            Game = dense_rank(as.integer(paste0(Week, Game))),
+            Logo = sprintf(xl, tolower(Team))
         ) %>%
         inner_join(
-            select(tm, Team, Name),
+            select(tm, Team, Name2),
             "Team"
         )
-    yn <- names(y)
-    players <- yn[(which(yn == "TeamWon")+1):(which(yn == "Logo")-1)]
-    yb <- c("GameId", "Week", "VH", "Logo", "Name", "Score", "Team", "TeamWon")
-    y <- y[c(yb, players)]
-    for (pl in players) {
-        y[, pl] <- ifelse(y[, pl] == "", "", y$Logo)
-    }
-    y$TeamWon <- ifelse(y$TeamWon == y$Team, 1, 0)
-    y <- y %>%
-        arrange(Week, GameId, desc(VH)) %>%
-        mutate(
-            # WeekId = Week,
-            # Week = ifelse(
-            #     is.na(lag(Week)) | lag(Week) != Week,
-            #     paste("Week", Week),
-            #     NA_character_
-            # ),
-            Week = ifelse(
-                VH == "V", paste("Week", Week), NA_character_
+    xn <- names(x)
+    players <- xn[(which(xn == "TeamWon")+1):(which(xn == "Logo")-1)]
+    y <- lapply(split(x, x$Game), function(v, vp = players){
+        vd <- unique(select(v, Week, Game))
+        v <- v %>%
+            mutate(
+                Style = ifelse(
+                    is.na(TeamWon), "",
+                    ifelse(
+                        TeamWon != Team, "",
+                        "color: #2780E3;font-weight: bold;"
+                    )
+                ),
+                Match = sprintf(
+                    "%s&nbsp&nbsp&nbsp<span style='width: 100%s;%s'>%s<span style='float: right;'>%s</span></span>",
+                    Logo,
+                    "%",
+                    Style,
+                    Name2,
+                    ifelse(is.na(Score), "", as.character(Score))
+                )
+            )
+        mrfmt <- "<div style='display: flex;align-items: center;'>%s</div>"
+        vd$Match <- sprintf(
+            fmt = "%s<br>%s ",
+            sprintf(mrfmt, v[1, ]$Match),
+            sprintf(mrfmt, v[2, ]$Match)
+        )
+        vp <- data.frame(
+            Player = players,
+            Pick = NA_character_,
+            stringsAsFactors = FALSE
+        )
+        for (pl in players) {
+            pk <- v[, pl]
+            pk <- pk[pk != ""]
+            vp[vp$Player == pl, ]$Pick <- pk
+        }
+        vp$Sort <- ifelse(vp$Pick == v[1, ]$Team, 0, 1)
+        vp <- arrange(vp, Sort)
+        vd$Picks <- sprintf(
+            fmt = "<ul>%s</ul>",
+            paste(
+                sprintf("<li>%s - %s</li>", vp$Pick, vp$Player),
+                collapse = ""
             )
         )
-    z <- split(y, y$GameId)
-    z1 <- z$`1`
-    zb <- z1[1, ] %>%
-        mutate(
-            GameId = NA_integer_,
-            Week = NA_integer_,
-            VH = NA_character_,
-            Logo = NA_character_,
-            Name = "",
-            Score = NA_integer_,
-            Team = NA_character_,
-            TeamWon = as.numeric(NA)#,
-            # WeekId = NA_integer_
+        return(vd)
+    })
+    z <- do.call(rbind, y) %>%
+        arrange(Week, Game) %>%
+        select(
+            Week,
+            Game = Match,
+            Picks
         )
-    for (pl in players) {
-        zb[, pl] <- NA_character_
-    }
-    z1 <- rbind(zb, z1, zb)
-    if (length(z) > 1) {
-        for (i in 2:length(z)) {
-            zt <- z[[i]]
-            z1 <- rbind(z1, zt, zb)
-        }
-    }
-    z <- z1
     row.names(z) <- NULL
-    # z$WeekId <- ifelse(
-    #     !is.na(z$WeekId), z$WeekId,
-    #     lag(z$WeekId)
-    # )
     return(z)
 }
