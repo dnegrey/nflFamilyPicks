@@ -29,7 +29,7 @@ picksTableDT <- function(x) {
         class = "row-border",
         escape = FALSE,
         selection = "none",
-        extensions = "Responsive",
+        # extensions = "Responsive",
         options = list(
             dom = "t",
             pageLength = nrow(x),

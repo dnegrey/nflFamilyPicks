@@ -1,7 +1,14 @@
 uiPicks <- function(m) {
     div(
+        br(),
         # section divider
-        div(class = "ui horizontal divider", icon("sliders horizontal"), "Picks"),
+        div(
+            class = "ui horizontal divider",
+            style = "color: #D50A0A;",
+            icon("sliders horizontal"),
+            "Picks"
+        ),
+        br(),
         # options
         div(class = "ui container",
             flow_layout(column_gap = "20px", row_gap = "15px",
@@ -35,6 +42,7 @@ uiPicks <- function(m) {
                         )
             )
         ),
+        br(),
         # DT
         DTOutput("picksDT")
     )

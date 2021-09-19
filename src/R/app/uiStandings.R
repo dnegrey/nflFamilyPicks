@@ -1,7 +1,14 @@
 uiStandings <- function(m) {
     div(
+        br(),
         # section divider
-        div(class = "ui horizontal divider", icon("trophy"), "Standings"),
+        div(
+            class = "ui horizontal divider",
+            style = "color: #D50A0A;",
+            icon("trophy"),
+            "Standings"
+        ),
+        br(),
         # options
         div(class = "ui container",
             flow_layout(column_gap = "20px", row_gap = "15px",
@@ -14,13 +21,14 @@ uiStandings <- function(m) {
                             condition = "input.standingsFilter_ByFamily == true",
                             selectInput(
                                 inputId = "standingsFilter_Family",
-                                label = NULL,
+                                label = "Select Family",
                                 choices = levels(factor(m$person$Family)),
                                 multiple = FALSE
                             )
                         )
             )
         ),
+        br(),
         # DT
         DTOutput("standingsDT")
     )
