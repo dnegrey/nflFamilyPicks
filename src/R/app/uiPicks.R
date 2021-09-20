@@ -23,7 +23,7 @@ uiPicks <- function(m) {
                             label = "Select Week(s)",
                             min = 1,
                             max = 18,
-                            value = c(1, 18),
+                            value = c(max(m$game$Week), 18),
                             step = 1
                         ),
                         toggle(
